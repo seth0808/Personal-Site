@@ -42,8 +42,8 @@ class RainSplashEffect {
 		c.lineTo(this.x + this.radius, this.y);
 		c.arcTo(this.x, this.y, this.x, this.y + this.radius, this.radius);
 		c.strokeStyle = "11, 101, 149";
-		//c.fillStyle = '17, 132, 179';
-      	//c.fill();
+		c.fillStyle = '0, 127, 2';
+      	c.fill();
 		c.stroke();
 	}
 	
@@ -117,7 +117,7 @@ class Rain {
 			//   (x, y, r, sAngle, eAngle, cc)
 			c.arc(this.x, this.y, this.radius, this.getTailStartAngle(), this.getTailEndAngle(), true);
 			c.strokeStyle = "11, 101, 149";
-			c.fillStyle = '17, 132, 179';
+			c.fillStyle = '0, 127, 2';
       		c.fill();
 			c.stroke();
 
@@ -143,7 +143,7 @@ class SettingOne {
 	constructor(){
 		this.raindrops = []
 		var i;
-		for (i=0; i < 100; i++){
+		for (i=0; i < 50; i++){
 			let randomValue = Math.random();
 			var x = Math.random()*(1.5*canvas.width)
 			var y = -1*(randomValue*(canvas.height*2))
