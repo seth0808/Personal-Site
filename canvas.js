@@ -3,7 +3,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var c = canvas.getContext('2d');
 
-document.getElementById("canvas").style.background = "rgb(240, 240, 240)"
+document.getElementById("canvas").style.background = "linear-gradient(black, white)"
 
 class RainSplashEffect {
 	constructor(x, y){
