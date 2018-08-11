@@ -1,12 +1,37 @@
+// Canvas Setup //
 var canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var c = canvas.getContext('2d');
+// End Canvas Setup //
 
-document.getElementById("canvas").style.background = "linear-gradient(black, white)"
+// Background //
+colorChange = false;
 
+var fgr = 25;
+var fgg = 25;
+var fgb = 112;
+
+var sgr = 230;
+var sgg = 230;
+var sgb = 255;
+
+var fr = 0;
+var fg = 0;
+var fb = 0;
+
+var sr = 0;
+var sg = 0;
+var sb = 0;
+
+
+// End Background //
+
+
+// Setting Zero Classes //
 class RainSplashEffect {
 	constructor(x, y){
+		this.iterations = 0;
 		this.x = x;
 		this.y = y;
 		if (Math.random() < 0.5){
@@ -29,22 +54,28 @@ class RainSplashEffect {
 	}
 
 	draw(){
-		this.move();
-		console.log(this.x + "     " + this.y)
-		c.beginPath();
-		c.moveTo(this.x, this.y + this.radius);
-		c.lineTo(this.x, this.y + this.height - this.radius);
-		c.arcTo(this.x, this.y + this.height, this.x + this.radius, this.y + this.height, this.radius);
-		c.lineTo(this.x + this.width - this.radius, this.y + this.height);
-		c.arcTo(this.x + this.width, this.y + this.height, this.x + this.width, this.y + this.height-this.radius, this.radius);
-		c.lineTo(this.x + this.width, this.y + this.radius);
-		c.arcTo(this.x + this.width, this.y, this.x + this.width - this.radius, this.y, this.radius);
-		c.lineTo(this.x + this.radius, this.y);
-		c.arcTo(this.x, this.y, this.x, this.y + this.radius, this.radius);
-		c.strokeStyle = "11, 101, 149";
-		c.fillStyle = '0, 127, 2';
-      	c.fill();
-		c.stroke();
+		this.iterations ++;
+		if (this.iterations < 40){
+			this.move();
+			c.beginPath();
+			c.moveTo(this.x, this.y + this.radius);
+			c.lineTo(this.x, this.y + this.height - this.radius);
+			c.arcTo(this.x, this.y + this.height, this.x + this.radius, this.y + this.height, this.radius);
+			c.lineTo(this.x + this.width - this.radius, this.y + this.height);
+			c.arcTo(this.x + this.width, this.y + this.height, this.x + this.width, this.y + this.height-this.radius, this.radius);
+			c.lineTo(this.x + this.width, this.y + this.radius);
+			c.arcTo(this.x + this.width, this.y, this.x + this.width - this.radius, this.y, this.radius);
+			c.lineTo(this.x + this.radius, this.y);
+			c.arcTo(this.x, this.y, this.x, this.y + this.radius, this.radius);
+			c.strokeStyle = "100, 69, 0";
+			c.fillStyle = '100, 69, 0';
+			c.strokeStyle = 'rgba(100, 69, 0, 0.5)';
+			c.fillStyle = 'rgba(100, 69, 0, 1)';
+	      	c.fill();
+			c.stroke();
+		}
+
+
 	}
 	
 }
@@ -79,8 +110,20 @@ class Rain {
 			return tailAngle - ((Math.PI*2)/3)
 		}
 
+		collisionWithHTML(){
+			if (this.y > parseInt($("#item").css("top"), 10)+15 && this.y < parseInt($("#item").css("top"), 10)+20 && this.x > parseInt($("#item").css("left")) && this.x < parseInt($("#item").css("left"))+10)  {
+				return true;
+			}else if (this.y > parseInt($("#item").css("top"), 10)+10 && this.y < parseInt($("#item").css("top"), 10)+20 && this.x > parseInt($("#item").css("left"))+11 && this.x < parseInt($("#item").css("left"))+40)  {
+				return true;
+			}else if (this.y > parseInt($("#item").css("top"), 10)+40 && this.y < parseInt($("#item").css("top"), 10)+50 && this.x > parseInt($("#item").css("left"))+41 && this.x < parseInt($("#item").css("left"))+90)  {
+				return true;
+			}else {
+				return false;
+			}
+		}
+
 		collision(){
-			if (this.y > canvas.height) {
+			if (this.y > canvas.height || this.collisionWithHTML()) {
 				if (this.x < 0){
 					return 1;
 				} else {
@@ -90,6 +133,8 @@ class Rain {
 				return 0;
 			}
 		}
+
+
 
 		draw() {
 			let collisionValue = this.collision();
@@ -104,7 +149,7 @@ class Rain {
 				var j = Math.round(Math.random()*5);
 				if (collisionValue == 2){
 					for (i = 0; i < j; i++){
-						this.splashes.push(new RainSplashEffect(saveX, canvas.height))
+						this.splashes.push(new RainSplashEffect(saveX, saveY-10))
 					}
 				}
 				
@@ -116,8 +161,8 @@ class Rain {
 			c.beginPath();
 			//   (x, y, r, sAngle, eAngle, cc)
 			c.arc(this.x, this.y, this.radius, this.getTailStartAngle(), this.getTailEndAngle(), true);
-			c.strokeStyle = "11, 101, 149";
-			c.fillStyle = '0, 127, 2';
+			c.fillStyle = 'rgba(0, 127, 1, 0.5)';
+			c.strokeStyle = 'rgba(11, 101, 149, 0.5)';
       		c.fill();
 			c.stroke();
 
@@ -131,19 +176,23 @@ class Rain {
 			x = (Math.cos(this.getTailEndAngle())*this.radius)+this.x; 
 			y = (Math.sin(this.getTailEndAngle())*this.radius)+this.y;
 			c.lineTo(x, y);
-			c.fillStyle = '17, 132, 179';
+			c.fillStyle = 'rgba(17, 132, 179, 1)';
+			c.strokeStyle = 'rgba(11, 101, 149, 0.5)';
       		c.fill();
 			c.stroke()
 
 		}
 };
 
-class SettingOne {
+class SettingZero {
 
 	constructor(){
 		this.raindrops = []
+		this.stopper = true;
+		this.totalDraw = 100;
+		this.interval = 0;
 		var i;
-		for (i=0; i < 50; i++){
+		for (i=0; i < this.totalDraw; i++){
 			let randomValue = Math.random();
 			var x = Math.random()*(1.5*canvas.width)
 			var y = -1*(randomValue*(canvas.height*2))
@@ -152,28 +201,650 @@ class SettingOne {
 	}
 
 	draw(){
-		this.raindrops.forEach(function(element) {
-  			element.draw(x);
+		if (this.stopper == false){	
+			this.totalDraw = 50;
+			var i;
+			for (i = 0; i < this.totalDraw; i++){
+				this.raindrops[i].draw();
+			}
+		}else {
+			this.interval ++;
+			if (this.interval == 10){
+				this.interval = 0;
+				this.totalDraw -=2;
+			}
+			
+			var i;
+			for (i = 0; i < this.totalDraw; i++){
+				this.raindrops[i].draw();
+			}
+		}
+	}
+
+	endSetting() {
+		this.stopper = true;
+	}
+
+	beginSetting() {
+		this.stopper = false;
+		$("#item").fadeOut("slow", function(){
+			$("#item").replaceWith($("<div id='item'><img src='assets/umbrella.png' height='20px' width='20px'></div> <!-- End of Umbrella Div -->"));
+			$("#item").fadeOut(0);
+			$("#item").fadeIn("slow");
+		});
+
+		
+	}
+};
+// End Setting Zero Classes //
+
+// Setting One Classes // 
+class Beam {
+
+	constructor(x, y, order){
+		this.fade = true;
+		this.x = x;
+		this.y = y;
+		this.opacity = 0;
+		this.angle = (-1*Math.PI/4) - ((1 + Math.random()) * (order * Math.PI/2));
+	}
+
+	move() {
+		this.angle += 0.003;
+		if (this.angle > Math.PI*2){
+			this.angle = 0;
+		}
+		if (this.fade == true){
+			if (this.opacity > 0){
+				this.opacity -= 0.001;
+			}
+		}else{
+			if (this.opacity < 0.05){
+				this.opacity += 0.001;
+			}
+		}
+		
+	}
+
+	draw() {
+		this.move()
+		c.beginPath();
+		c.moveTo(this.x, this.y);
+		var length = 2 * Math.sqrt(canvas.width**2 + canvas.height**2);
+		var x = (Math.cos(this.angle) * length) + this.x;
+		var y = (Math.sin(this.angle) * length) + this.y;
+		c.lineTo(x, y);
+		var x = (Math.cos(this.angle+Math.PI/4) * length) + this.x;
+		var y = (Math.sin(this.angle+Math.PI/4) * length) + this.y;
+		c.lineTo(x, y);
+		c.lineTo(this.x, this.y)
+		c.fillStyle = 'rgba(253, 184, 19, ' + this.opacity.toString() + ')';
+		c.strokeStyle = 'rgba(0, 0, 0, 0)';
+      	c.fill();
+		c.stroke();
+
+	}
+
+	decrease(value) {
+		this.fade = value;
+	}
+
+	setX(value) {
+		this.x = value;
+	}
+}
+
+class SettingOne {
+
+	constructor(){
+		this.bOne = new Beam(canvas.width+10, -100, 0);
+		this.bTwo = new Beam(canvas.width+10, -100, 1);
+	}
+
+	draw(){
+			this.bOne.draw();
+			this.bTwo.draw();
+	}
+
+	endSetting() {
+		this.bOne.decrease(true);
+		this.bTwo.decrease(true);
+	}
+
+	beginSetting() {
+		this.bOne.setX(canvas.width+10);
+		this.bTwo.setX(canvas.width+10);
+		this.bOne.decrease(false);
+		this.bTwo.decrease(false);
+		$("#item").fadeOut("slow", function(){
+			$("#item").replaceWith($("<div id='item'><img src='assets/ball.png' height='20px' width='20px'></div> <!-- End of Umbrella Div -->"));
+			$("#item").fadeOut(0);
+			$("#item").fadeIn("slow");
+		});
+
+	}
+};
+// End Setting One Classes // 
+
+// Setting Two Classes //
+class Snow {
+
+	constructor(x, y) {
+		this.x = x;
+		this.y = y;
+		if (Math.random() < 0.5) {
+			this.xVel = Math.random() * -1;
+		} else {
+			this.xVel = Math.random() * 1;
+		}
+		let random = Math.random();
+		this.yVel = 5 * random;
+		this.yAcc = 0.1;
+		this.radius = 2 * random;
+	}
+
+	collision() {
+		if (this.y > canvas.height){
+			return true;
+		}
+	}
+
+	move() {
+		this.x += this.xVel;
+		this.y += this.yVel;
+		this.yVel += this.yAcc;
+		if (this.collision() == true){
+			this.x = Math.random() * canvas.width;
+			this.y = Math.random() * -50;
+			let random = Math.random();
+			this.yVel = 5 * random;
+			this.radius = 2 * random;
+		}
+	}
+
+	draw(){
+		this.move();
+		c.beginPath();
+		//   (x, y, r, sAngle, eAngle, cc)
+		c.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
+		c.fillStyle = 'rgb(240, 240, 236)';
+		c.strokeStyle = 'rgba(245, 245, 245, 0.5)';
+  		c.fill();
+		c.stroke();
+
+	}
+}
+
+class SettingTwo {
+
+	constructor(){
+		var i;
+		this.stopper = true;
+		this.snowFall = [];
+		this.totalDraw = 200;
+		for (i = 0; i < this.totalDraw; i++){
+			var x = Math.random() * canvas.width;
+			var y = Math.random() * -1000;
+			this.snowFall.push(new Snow(x, y));
+		}
+	}
+
+	draw(){
+		if (this.stopper == false){
+			var i;
+			for (i = 0; i < this.totalDraw; i++){
+				this.snowFall[i].draw();
+			}
+		}
+	}
+
+	endSetting() {
+		this.stopper = true;
+	}
+
+	beginSetting() {
+		this.stopper = false;
+		$("#item").fadeOut("slow", function(){
+			$("#item").replaceWith($("<div id='item'><img src='assets/snow.png' height='20px' width='20px'></div> <!-- End of Umbrella Div -->"));
+			$("#item").fadeOut(0);
+			$("#item").fadeIn("slow");
 		});
 	}
 };
 
-settings = []
-settings.push(new SettingOne())
+//End Setting Two Classes //
 
+// Setting Three Classes //
+class SettingThree {
 
+	constructor(){
+		
+	}
+
+	draw(){
+		
+	}
+
+	endSetting() {
+		
+	}
+
+	beginSetting() {
+		this.stopper = false;
+		$("#item").fadeOut("slow", function(){
+			$("#item").replaceWith($("<div id='item'><img src='assets/cloud.png' height='20px' width='20px'></div> <!-- End of Umbrella Div -->"));
+			$("#item").fadeOut(0);
+			$("#item").fadeIn("slow");
+		});
+	}
+};
+
+//End Setting Three Classes //
+
+// Setting Four Classes //
+class SettingFour {
+
+	constructor(){
+		
+	}
+
+	draw(){
+		
+	}
+
+	endSetting() {
+		
+	}
+
+	beginSetting() {
+		this.stopper = false;
+		$("#item").fadeOut("slow", function(){
+			$("#item").replaceWith($("<div id='item'><img src='assets/storm.png' height='20px' width='20px'></div> <!-- End of Umbrella Div -->"));
+			$("#item").fadeOut(0);
+			$("#item").fadeIn("slow");
+		});
+	}
+};
+
+//End Setting Four Classes //
+
+// Regulate the Seasons //
+settings = [];
+settings.push(new SettingZero());
+settings.push(new SettingOne());
+settings.push(new SettingTwo());
+settings.push(new SettingThree());
+settings.push(new SettingFour());
+nextSetting = 0;
+changeSettings();
+
+timer = 0;
+function changeSettings(){
+	if (nextSetting == 0){
+		nextSetting = 1;
+		seasons = [0, 1];
+		settings[0].beginSetting()
+		settings[1].endSetting()
+		settings[2].endSetting()
+		settings[3].endSetting()
+		settings[4].endSetting()
+		colorChange = true;
+  		fr = 25;
+  		fg = 25;
+  		fb = 112;
+
+  		sr = 230;
+  		sg = 230;
+  		sb = 255;
+	}else if (nextSetting == 1){
+		nextSetting = 2;
+		settings[0].endSetting()
+		settings[1].beginSetting()
+		settings[2].endSetting()
+		settings[3].endSetting()
+		settings[4].endSetting()
+		colorChange = true;
+		fr = 135;
+  		fg = 206;
+  		fb = 235;
+
+  		sr = 255;
+  		sg = 235;
+  		sb = 205;
+  		
+	} else if (nextSetting == 2){
+		nextSetting = 3;
+		settings[0].endSetting()
+		settings[1].endSetting()
+		settings[2].beginSetting()
+		settings[3].endSetting()
+		settings[4].endSetting()
+		colorChange = true;
+  		fr = 120;
+  		fg = 200;
+  		fb = 255;
+
+  		sr = 240;
+  		sg = 240;
+  		sb = 240;
+	}
+	else if (nextSetting == 3){
+		nextSetting = 4;
+		settings[0].endSetting()
+		settings[1].endSetting()
+		settings[2].endSetting()
+		settings[3].beginSetting()
+		settings[4].endSetting()
+		colorChange = true;
+		fr = 100;
+  		fg = 100;
+  		fb = 150;
+
+  		sr = 200;
+  		sg = 220;
+  		sb = 200;
+	}
+	else if (nextSetting == 4){
+		nextSetting = 0;
+		settings[0].endSetting()
+		settings[1].endSetting()
+		settings[2].endSetting()
+		settings[3].endSetting()
+		settings[4].beginSetting()
+		colorChange = true;
+		fr = 70;
+  		fg = 70;
+  		fb = 120;
+
+  		sr = 170;
+  		sg = 150;
+  		sb = 180;
+	}
+}
+
+// End Regulate the Seasons //
+
+// Animate // 
 var x = 0
+randomSettingChanger = true;
 function animate() {
+	if (randomSettingChanger == true){
+		timer ++;
+		if (timer == 1000){
+			timer = 0;
+			changeSettings();
+		}
+	}
+	
     requestAnimationFrame(animate);
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    settings[0].draw()
-
+    settings.forEach(function(element) {
+	  	element.draw();
+	});
+    if (colorChange == true){
+	    var done = true;
+		if (fr < fgr){
+			fgr --;
+			done = false;
+		} else if (fr > fgr){
+			fgr ++;
+			done = false;
+		}
+		if (fg < fgg){
+			fgg --;
+			done = false;
+		} else if (fg > fgg){
+			fgg ++;
+			done = false;
+		}
+		if (fb < fgb){
+			fgb --;
+			done = false;
+		} else if (fb > fgb){
+			fgb ++;
+			done = false;
+		}
+		if (sr < sgr){
+			sgr --;
+			done = false;
+		} else if (sr > sgr){
+			sgr ++;
+			done = false;
+		}
+		if (sg < sgg){
+			sgg --;
+			done = false;
+		} else if (sg > sgg){
+			sgg ++;
+			done = false;
+		}
+		if (sb < sgb){
+			sgb --;
+			done = false;
+		} else if (sb > sgb){
+			sgb ++;
+			done = false;
+		}
+		if (done){
+			bool = false;
+		}
+	}
+	document.getElementById("canvas").style.background = "linear-gradient(rgba(" + fgr.toString() + "," + fgg.toString() + "," + fgb.toString() + "), rgb(" + sgr.toString() + "," + sgg.toString() + "," + sgb.toString() + ", 0.95))"
 }
 
 animate();
+// End Animate //
+
+
+//  Get Weather //
+var currentWeather;
+var OpenWeather = (function(){
+	var self = {};
+	
+	if (!$)
+		throw "JQuery is required for OpenWeather API";
+
+	var appId = '', 		// API key consumed by API for validation
+		zip = '',			// Get weather for this zip code
+		ready = false,		// Validatea that the API has returned data
+		rawResponse = {},	// Contains raw response from API
+		iconEl = '',		// ID for element containing weather icon
+		infoEl = '';		// ID for element containing weather info
+	
+	self.zip = function(newZip){
+		// Sets new zip code if provided and fetch new data, 
+		// 		otherwise returns current zip code
+		if (typeof newZip === 'undefined'){
+			return zip;
+		} else if (typeof newZip == 'string' && newZip.length == 5) {
+			zip = newZip;
+			retrieveWeather();
+			return zip;	
+		} else {
+			throw 'Invalid Zip: Must be a 5-character string';
+			return false;type	
+		}
+	};
+	
+	self.appId = function(newAppId){
+		// Sets new AppId if provided and fetch new data, 
+		// otherwise returns current AppId
+		if (typeof newAppId === 'undefined'){
+			return appId;
+		} else {
+			appId = newAppId;
+			retrieveWeather();
+			return appId;	
+		}
+	};
+	
+	var apiUrl = function(){	
+		// assembled API call URL
+		return 'http://api.openweathermap.org/data/2.5/weather?zip=' + zip + ',us&appid=' + appId;
+	};
+	
+	var retrieveWeather = function(){
+		// call to API
+		$.ajax({
+			type: 'GET',
+			url: apiUrl(), 
+			dataType: 'jsonp',
+			success: function(result){
+			
+				// set raw response data
+				rawResponse = result;
+				currentWeather = rawResponse.weather[0].main;
+				
+				return true;
+			}
+		});
+	};
+	
+	self.init = function(initData){
+		// set intializing data
+		if(typeof initData.zip == 'undefined' || typeof initData.appId == 'undefined') {
+			// require zip and appID
+			throw 'must provide zip and app id';
+			return self;
+		} else {
+		
+			if (typeof initData.icon === 'undefined')
+				initData.icon = ''; // permit null icon ID
+				
+			if (typeof initData.info === 'undefined')
+				initData.info = ''; // permit null info ID
+				
+			zip = initData.zip;
+			appId = initData.appId;
+			iconEl = initData.icon;
+			infoEl = initData.info;
+			
+			return self;
+		}
+	};
+	
+	self.fetch = function(){
+		// fetches weather
+		return retrieveWeather();
+	}
+	
+	function kelvinToF(K){
+		return (K*9/5 - 459.67).toFixed(1);
+	}
+	
+	function mpsToMph(mps){
+		return (2.236936*mps).toFixed(1).toString();
+	}
+	
+	function degToCardDir(deg){
+		var dir = '';
+		switch(true) {
+			case (deg <= 11.25 && deg > 348.75 ):
+				dir = 'N';
+				break;
+			case (deg <= 33.75 && deg > 11.25 ):
+				dir = 'NNE';
+				break;
+			case (deg <= 56.25 && deg > 33.75 ):
+				dir = 'NE';
+				break;	
+			case (deg <= 78.75 && deg > 56.25 ):
+				dir = 'ENE';
+				break;
+			case (deg <= 101.25 && deg > 78.75 ):
+				dir = 'E';
+				break;
+			case (deg <= 123.75 && deg > 101.25 ):
+				dir = 'ESE';
+				break;
+			case (deg <= 146.25 && deg > 123.75 ):
+				dir = 'SE';
+				break;
+			case (deg <= 168.75 && deg > 146.25 ):
+				dir = 'SSE';
+				break;
+			case (deg <= 191.25 && deg > 168.75 ):
+				dir = 'S';
+				break;
+			case (deg <= 213.75 && deg > 191.25 ):
+				dir = 'SSW';
+				break;
+			case (deg <= 236.25 && deg > 213.75 ):
+				dir = 'SW';
+				break;
+			case (deg <= 258.75 && deg > 236.25 ):
+				dir = 'WSW';
+				break;
+			case (deg <= 281.25 && deg > 258.75 ):
+				dir = 'W';
+				break;
+			case (deg <= 303.75 && deg > 281.25 ):
+				dir = 'WNW';
+				break;
+			case (deg <= 326.25 && deg > 303.75 ):
+				dir = 'NW';
+				break;
+			case (deg <= 348.75 && deg > 326.25 ):
+				dir = 'NNW';
+				break;
+			default:
+				break;
+		}
+		return dir;
+	}
+	
+	return self;
+}());
 
 
 
+OpenWeather.init({
+	zip: '90210',                              // zip, required
+	appId: 'e9fa1fe1bd6b464092719170a71067d3', // API Key, required
+	//icon: 'weather-icon',                      // icon ID, optional
+	//info: 'weather-info'                       // info ID, optional
+}).fetch();
+
+OpenWeather.zip('07940');
+
+// Event Handlers //
 
 
+
+document.addEventListener('keydown', (event) => {
+  const keyName = event.key;
+  if (keyName == "Enter"){
+  	randomSettingChanger = false;
+  	let zipCode = document.getElementById("zip").value;
+  	if (zipCode == "" || OpenWeather.zip(zipCode.toString()) == false){
+  		return;
+  	}
+  	if (currentWeather == "Clear"){
+  		$("#locInfo").text("Zip: " + zipCode.toString() + "  |  " + currentWeather.toString()); 
+  		nextSetting = 1;
+		changeSettings();
+  	} else if (currentWeather == "Rain"){
+  		$("#locInfo").text("Zip: " + zipCode.toString() + "  |  " + currentWeather.toString()); 
+  		nextSetting = 0;
+		changeSettings();
+  	} else if (currentWeather == "Snow"){
+  		$("#locInfo").text("Zip: " + zipCode.toString() + "  |  " + currentWeather.toString()); 
+  		nextSetting = 2;
+		changeSettings();
+	} else if (currentWeather == "Cloudy"){
+  		$("#locInfo").text("Zip: " + zipCode.toString() + "  |  " + currentWeather.toString()); 
+  		nextSetting = 3;
+		changeSettings();
+	} else if (currentWeather == "Thunderstorm"){
+  		$("#locInfo").text("Zip: " + zipCode.toString() + "  |  " + currentWeather.toString()); 
+  		nextSetting = 4;
+		changeSettings();
+  	} else {
+  		$("#locInfo").text("Zip: " + zipCode.toString() + "  |  " + currentWeather.toString()); 
+  	}
+  	
+  }
+});
+
+// End Event Handlers //
