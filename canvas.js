@@ -747,7 +747,7 @@ var OpenWeather = (function(){
 	
 	var apiUrl = function(){	
 		// assembled API call URL
-		return 'http://api.openweathermap.org/data/2.5/weather?zip=' + zip + ',us&appid=' + appId;
+		return 'https://api.openweathermap.org/data/2.5/weather?zip=' + zip + ',us&appid=' + appId;
 	};
 	
 	var retrieveWeather = function(){
