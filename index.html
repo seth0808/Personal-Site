@@ -7,13 +7,22 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=MedievalSharp" rel="stylesheet">
 
+        <!-- JQuery and UI -->
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
         <!-- Personal -->
         <link rel="stylesheet" type="text/css" href="indexStyle.css">
+        <script src="main.js"></script>
         
         
     </head>
     <body>
     	<div id="wrapper">
+    		<div id="item">
+				<img src="assets/umbrella.png" height="20px" width="20px">
+			</div> <!-- End of Umbrella Div -->
     		<div id ="background">
         		<canvas id='canvas'>
         		</canvas>
@@ -22,9 +31,14 @@
         	<div id="content">
 				<h1>Under Construction</h1>
 			</div> <!-- End of Content Div -->
+			
 			<div id="copyright">
-				<p> © 2018 SethKujawa    |    <a href="https://fonts.google.com/">Google Fonts</a>    |    <a href="https://github.com/seth0808">Github</a>
+				<p> © 2018 SethKujawa    |    <a href="https://fonts.google.com/">Google Fonts</a>    |    <a href="https://github.com/seth0808">Github    |</a>
+				<textarea id="zip" maxlength="5" placeholder="zipcode" rows="1" cols="7"></textarea>
+				<p id="locInfo">Random</p>
 			</div> <!-- End of Copyright Div -->
+
 		</div> <!-- End of Wrapper Div -->
+
     </body>
 </html>
