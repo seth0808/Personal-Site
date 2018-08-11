@@ -1,8 +1,10 @@
 body {
     margin: 0;
+    background-color: rgb(240, 240, 240);
 }
 #wrapper {
 	position: relative;
+	margin: 0;
 }
 #content {
 	position: absolute;
@@ -15,6 +17,11 @@ body {
     font-family: 'MedievalSharp', cursive;
 	
 }
+#item {
+	position: absolute;
+	bottom: 12%;
+	right: 5%;
+}
 #copyright {
 	text-align: center;
     font-family: 'MedievalSharp', cursive;
@@ -26,4 +33,11 @@ a {
 }
 canvas {
     background: blue;
+    border-bottom: 3px solid green;
+}
+#locInfo {
+	position: absolute;
+	bottom: 7%;
+	right: 5%;
+	font-size: 10px;
 }
