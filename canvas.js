@@ -1,14 +1,4 @@
 
-// Check if Mobile // 
-window.mobilecheck = function() {
-  var check = false;
-  (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
-  return check;
-};
-// Check if Mobile //
-let mobile = mobilecheck();
-
-
 // Canvas Setup //
 var canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
@@ -16,6 +6,44 @@ canvas.height = window.innerHeight;
 var c = canvas.getContext('2d');
 // End Canvas Setup //
 
+// Check if Mobile // 
+window.mobilecheck = function() {
+  var check = false;
+  (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
+  return check;
+};
+// Check if Mobile //
+if (mobilecheck()) {
+
+function deviceOrientationListener(event) {
+
+        c.clearRect(0, 0, c.width, c.height);
+        c.fillStyle = "#FF7777";
+        c.font = "14px Verdana";
+        c.fillText("Alpha: " + Math.Round(event.alpha), 10, 20);
+        c.beginPath();
+        c.moveTo(180, 75);
+        c.lineTo(210, 75);
+        c.arc(180, 75, 60, 0, event.alpha * Math.PI / 180);
+        c.fill();
+
+        c.fillStyle = "#FF6600";
+        c.fillText("Beta: " + Math.round(event.beta), 10, 140);
+        c.beginPath();
+        c.fillRect(180, 150, event.beta, 90);
+
+        c.fillStyle = "#FF0000";
+        c.fillText("Gamma: " + Math.round(event.gamma), 10, 270);
+        c.beginPath();
+        c.fillRect(90, 340, 180, event.gamma);
+      }
+
+      if (window.DeviceOrientationEvent) {
+        window.addEventListener("deviceorientation", deviceOrientationListener);
+      } else {
+        alert("Sorry, your browser doesn't support Device Orientation");
+     }
+} else {
 // Background //
 colorChange = false;
 
@@ -506,6 +534,32 @@ class SettingFive {
 
 //End Setting Five Classes //
 
+// Setting Six Classes //
+class SettingSix {
+
+	constructor(){
+		
+	}
+
+	draw(){
+		
+	}
+
+	endSetting() {
+		
+	}
+
+	beginSetting() {
+		this.stopper = false;
+		$("#item").fadeOut("slow", function(){
+			$("#item").replaceWith($("<div id='item'><img src='assets/smoke.png' height='20px' width='20px'></div> <!-- End of Umbrella Div -->"));
+			$("#item").fadeOut(0);
+			$("#item").fadeIn("slow");
+		});
+	}
+};
+//End Setting Six Classes //
+
 // Regulate the Seasons //
 settings = [];
 settings.push(new SettingZero());
@@ -514,11 +568,13 @@ settings.push(new SettingTwo());
 settings.push(new SettingThree());
 settings.push(new SettingFour());
 settings.push(new SettingFive());
+settings.push(new SettingSix());
 nextSetting = 0;
 changeSettings();
 
 timer = 0;
 function changeSettings(){
+	//Rain
 	if (nextSetting == 0){
 		nextSetting = 1;
 		seasons = [0, 1];
@@ -528,6 +584,7 @@ function changeSettings(){
 		settings[3].endSetting()
 		settings[4].endSetting()
 		settings[5].endSetting()
+		settings[6].endSetting()
 		colorChange = true;
   		fr = 25;
   		fg = 25;
@@ -536,6 +593,7 @@ function changeSettings(){
   		sr = 230;
   		sg = 230;
   		sb = 255;
+  	//Clear
 	}else if (nextSetting == 1){
 		nextSetting = 2;
 		settings[0].endSetting()
@@ -544,6 +602,7 @@ function changeSettings(){
 		settings[3].endSetting()
 		settings[4].endSetting()
 		settings[5].endSetting()
+		settings[6].endSetting()
 		colorChange = true;
 		fr = 135;
   		fg = 206;
@@ -552,7 +611,7 @@ function changeSettings(){
   		sr = 255;
   		sg = 235;
   		sb = 205;
-  		
+  	//Snow
 	} else if (nextSetting == 2){
 		nextSetting = 3;
 		settings[0].endSetting()
@@ -561,6 +620,7 @@ function changeSettings(){
 		settings[3].endSetting()
 		settings[4].endSetting()
 		settings[5].endSetting()
+		settings[6].endSetting()
 		colorChange = true;
   		fr = 120;
   		fg = 200;
@@ -570,6 +630,7 @@ function changeSettings(){
   		sg = 240;
   		sb = 240;
 	}
+	//Clouds
 	else if (nextSetting == 3){
 		nextSetting = 4;
 		settings[0].endSetting()
@@ -578,15 +639,17 @@ function changeSettings(){
 		settings[3].beginSetting()
 		settings[4].endSetting()
 		settings[5].endSetting()
+		settings[6].endSetting()
 		colorChange = true;
-		fr = 100;
-  		fg = 100;
-  		fb = 150;
+		fr = 200;
+  		fg = 200;
+  		fb = 220;
 
-  		sr = 200;
-  		sg = 220;
-  		sb = 200;
+  		sr = 100;
+  		sg = 100;
+  		sb = 120;
 	}
+	//Thunderstorm
 	else if (nextSetting == 4){
 		nextSetting = 5;
 		settings[0].endSetting()
@@ -595,6 +658,26 @@ function changeSettings(){
 		settings[3].endSetting()
 		settings[4].beginSetting()
 		settings[5].endSetting()
+		settings[6].endSetting()
+		colorChange = true;
+		fr = 70;
+  		fg = 70;
+  		fb = 120;
+
+  		sr = 190;
+  		sg = 150;
+  		sb = 180;
+	}
+	//Smoke
+	else if (nextSetting == 5){
+		nextSetting = 6;
+		settings[0].endSetting()
+		settings[1].endSetting()
+		settings[2].endSetting()
+		settings[3].endSetting()
+		settings[4].endSetting()
+		settings[5].beginSetting()
+		settings[6].endSetting()
 		colorChange = true;
 		fr = 70;
   		fg = 70;
@@ -604,6 +687,7 @@ function changeSettings(){
   		sg = 150;
   		sb = 180;
 	}
+	//Haze
 	else if (nextSetting == 5){
 		nextSetting = 0;
 		settings[0].endSetting()
@@ -611,7 +695,8 @@ function changeSettings(){
 		settings[2].endSetting()
 		settings[3].endSetting()
 		settings[4].endSetting()
-		settings[5].beginSetting()
+		settings[5].endSetting()
+		settings[6].beginSetting()
 		colorChange = true;
 		fr = 70;
   		fg = 70;
@@ -691,11 +776,8 @@ function animate() {
 			bool = false;
 		}
 	}
-	if (mobile == true){
-		document.getElementById("canvas").style.background = "rgb(" + fgr.toString() + "," + fgg.toString() + "," + fgb.toString() + ")";
-	} else{
 		document.getElementById("canvas").style.background = "linear-gradient(rgba(" + fgr.toString() + "," + fgg.toString() + "," + fgb.toString() + "), rgb(" + sgr.toString() + "," + sgg.toString() + "," + sgb.toString() + ", 0.95))"
-	}
+
 	
 }
 
@@ -910,6 +992,10 @@ document.addEventListener('keydown', (event) => {
   		$("#locInfo").text("Zip: " + zipCode.toString() + "  |  " + currentWeather.toString()); 
   		nextSetting = 5;
 		changeSettings();
+	} else if (currentWeather == "Haze"){
+  		$("#locInfo").text("Zip: " + zipCode.toString() + "  |  " + currentWeather.toString()); 
+  		nextSetting = 6;
+		changeSettings();
   	} else {
   		$("#locInfo").text("Zip: " + zipCode.toString() + "  |  " + currentWeather.toString()); 
   	}
@@ -918,7 +1004,7 @@ document.addEventListener('keydown', (event) => {
 });
 
 // End Event Handlers //
-
+}
 
 
 
