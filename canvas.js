@@ -14,7 +14,7 @@ window.mobilecheck = function() {
 };
 // Check if Mobile //
 if (mobilecheck()) {
-
+	alert("Using Mobile");
 function deviceOrientationListener(event) {
 
         c.clearRect(0, 0, c.width, c.height);
