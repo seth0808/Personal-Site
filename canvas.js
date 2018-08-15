@@ -19,7 +19,7 @@ $("#item").remove();
 $("#zip").remove();
 $("#locInfo").remove();
 
-if mobilecheck() {
+if (mobilecheck()) {
 window.addEventListener('deviceorientation', function(event) {
  var alpha = event.alpha;
  var beta = event.beta;
