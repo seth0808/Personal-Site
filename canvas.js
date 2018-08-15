@@ -1,4 +1,3 @@
-
 // Canvas Setup //
 var canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
@@ -13,36 +12,29 @@ window.mobilecheck = function() {
   return check;
 };
 // Check if Mobile //
-if (mobilecheck()) {
-	alert("Using Mobile");
-function deviceOrientationListener(event) {
+var ua = navigator.userAgent.toLowerCase(); 
+if (mobilecheck() || (ua.indexOf('safari') != -1 && ua.indexOf('chrome') <= -1 )) {
+alert("This looks much better with chrome on your computer btw...");
+$("#item").remove();
+$("#zip").remove();
+$("#locInfo").remove();
 
-        c.clearRect(0, 0, c.width, c.height);
-        c.fillStyle = "#FF7777";
-        c.font = "14px Verdana";
-        c.fillText("Alpha: " + Math.Round(event.alpha), 10, 20);
-        c.beginPath();
-        c.moveTo(180, 75);
-        c.lineTo(210, 75);
-        c.arc(180, 75, 60, 0, event.alpha * Math.PI / 180);
-        c.fill();
+if mobilecheck() {
+window.addEventListener('deviceorientation', function(event) {
+ var alpha = event.alpha;
+ var beta = event.beta;
+ var gamma = event.gamma;
+  
+c.rect(alpha, beta, 10, 10);
+c.strokeStyle = rgb(100, 100, 100);
+c.stroke();
+}, false);
+} else {
 
-        c.fillStyle = "#FF6600";
-        c.fillText("Beta: " + Math.round(event.beta), 10, 140);
-        c.beginPath();
-        c.fillRect(180, 150, event.beta, 90);
+}
 
-        c.fillStyle = "#FF0000";
-        c.fillText("Gamma: " + Math.round(event.gamma), 10, 270);
-        c.beginPath();
-        c.fillRect(90, 340, 180, event.gamma);
-      }
 
-      if (window.DeviceOrientationEvent) {
-        window.addEventListener("deviceorientation", deviceOrientationListener);
-      } else {
-        alert("Sorry, your browser doesn't support Device Orientation");
-     }
+
 } else {
 // Background //
 colorChange = false;
@@ -228,7 +220,7 @@ class SettingZero {
 	constructor(){
 		this.raindrops = []
 		this.stopper = true;
-		this.totalDraw = 100;
+		this.totalDraw = 150;
 		this.interval = 0;
 		var i;
 		for (i=0; i < this.totalDraw; i++){
@@ -262,6 +254,7 @@ class SettingZero {
 
 	endSetting() {
 		this.stopper = true;
+		
 	}
 
 	beginSetting() {
@@ -454,45 +447,102 @@ class SettingTwo {
 //End Setting Two Classes //
 
 // Setting Three Classes //
+class Lightning {
+	constructor() {
+		this.x = Math.random() * canvas.width;
+		this.y = -10;
+		this.path = [];
+		this.path.push([this.x, this.y]);
+		while (this.y < canvas.height){
+			if (Math.random()<0.5){
+				this.x += Math.random()*-10;
+			}else {
+				this.x += Math.random()*10;
+			}
+			this.y += Math.random()*20;
+			this.path.push([this.x, this.y])
+		}
+	}
+
+	new(){
+		this.x = Math.random() * canvas.width;
+		this.y = -10;
+		this.path = [];
+		this.path.push([this.x, this.y]);
+		while (this.y < canvas.height){
+			if (Math.random()<0.5){
+				this.x += Math.random()*-10;
+			}else {
+				this.x += Math.random()*10;
+			}
+			this.y += Math.random()*20;
+			this.path.push([this.x, this.y])
+		}
+	}
+
+	draw() {
+		c.beginPath();
+		c.moveTo(this.path[0][0], this.path[0][1]);
+		var i;
+		for (i=0; i < this.path.length; i++){
+			c.lineTo(this.path[i][0], this.path[i][1]);
+		}
+		c.strokeStyle = "rgba(255, 255, 255, 0.75)"
+		c.stroke();
+	}
+}
+
 class SettingThree {
 
 	constructor(){
+		this.raindrops = []
+		this.stopper = true;
+		this.totalDraw = 150;
+		this.interval = 0;
+		this.lightning = new Lightning();
+		this.lightningTimer = 0;
+		var i;
 		
+		for (i=0; i < this.totalDraw; i++){
+			let randomValue = Math.random();
+			var x = Math.random()*(1.5*canvas.width)
+			var y = -1*(randomValue*(canvas.height*2))
+			this.raindrops.push(new Rain(x, y, randomValue));
+		}
 	}
 
 	draw(){
-		
+		if (this.stopper == false){	
+			this.totalDraw = 50;
+			if (this.lightningTimer > 510){
+				this.lightningTimer = 0;
+				this.lightning.new()
+			}
+			if (this.lightningTimer > 500){
+				this.lightning.draw();
+			}
+			this.lightningTimer ++;
+			var i;
+			for (i = 0; i < this.totalDraw; i++){
+
+				this.raindrops[i].draw();
+			}
+		}else {
+			this.interval ++;
+			if (this.interval == 10){
+				this.interval = 0;
+				this.totalDraw -=2;
+			}
+			
+			var i;
+			for (i = 0; i < this.totalDraw; i++){
+				this.raindrops[i].draw();
+			}
+		}
 	}
 
 	endSetting() {
-		
-	}
-
-	beginSetting() {
-		this.stopper = false;
-		$("#item").fadeOut("slow", function(){
-			$("#item").replaceWith($("<div id='item'><img src='assets/cloud.png' height='20px' width='20px'></div> <!-- End of Umbrella Div -->"));
-			$("#item").fadeOut(0);
-			$("#item").fadeIn("slow");
-		});
-	}
-};
-
-//End Setting Three Classes //
-
-// Setting Four Classes //
-class SettingFour {
-
-	constructor(){
-		
-	}
-
-	draw(){
-		
-	}
-
-	endSetting() {
-		
+		this.stopper = true;
 	}
 
 	beginSetting() {
@@ -505,60 +555,8 @@ class SettingFour {
 	}
 };
 
-//End Setting Four Classes //
+//End Setting Three Classes //
 
-// Setting Five Classes //
-class SettingFive {
-
-	constructor(){
-		
-	}
-
-	draw(){
-		
-	}
-
-	endSetting() {
-		
-	}
-
-	beginSetting() {
-		this.stopper = false;
-		$("#item").fadeOut("slow", function(){
-			$("#item").replaceWith($("<div id='item'><img src='assets/smoke.png' height='20px' width='20px'></div> <!-- End of Umbrella Div -->"));
-			$("#item").fadeOut(0);
-			$("#item").fadeIn("slow");
-		});
-	}
-};
-
-//End Setting Five Classes //
-
-// Setting Six Classes //
-class SettingSix {
-
-	constructor(){
-		
-	}
-
-	draw(){
-		
-	}
-
-	endSetting() {
-		
-	}
-
-	beginSetting() {
-		this.stopper = false;
-		$("#item").fadeOut("slow", function(){
-			$("#item").replaceWith($("<div id='item'><img src='assets/smoke.png' height='20px' width='20px'></div> <!-- End of Umbrella Div -->"));
-			$("#item").fadeOut(0);
-			$("#item").fadeIn("slow");
-		});
-	}
-};
-//End Setting Six Classes //
 
 // Regulate the Seasons //
 settings = [];
@@ -566,9 +564,7 @@ settings.push(new SettingZero());
 settings.push(new SettingOne());
 settings.push(new SettingTwo());
 settings.push(new SettingThree());
-settings.push(new SettingFour());
-settings.push(new SettingFive());
-settings.push(new SettingSix());
+
 nextSetting = 0;
 changeSettings();
 
@@ -577,14 +573,11 @@ function changeSettings(){
 	//Rain
 	if (nextSetting == 0){
 		nextSetting = 1;
-		seasons = [0, 1];
+		settings[3].endSetting()
 		settings[0].beginSetting()
 		settings[1].endSetting()
 		settings[2].endSetting()
-		settings[3].endSetting()
-		settings[4].endSetting()
-		settings[5].endSetting()
-		settings[6].endSetting()
+		
 		colorChange = true;
   		fr = 25;
   		fg = 25;
@@ -600,9 +593,6 @@ function changeSettings(){
 		settings[1].beginSetting()
 		settings[2].endSetting()
 		settings[3].endSetting()
-		settings[4].endSetting()
-		settings[5].endSetting()
-		settings[6].endSetting()
 		colorChange = true;
 		fr = 135;
   		fg = 206;
@@ -618,9 +608,6 @@ function changeSettings(){
 		settings[1].endSetting()
 		settings[2].beginSetting()
 		settings[3].endSetting()
-		settings[4].endSetting()
-		settings[5].endSetting()
-		settings[6].endSetting()
 		colorChange = true;
   		fr = 120;
   		fg = 200;
@@ -630,73 +617,50 @@ function changeSettings(){
   		sg = 240;
   		sb = 240;
 	}
-	//Clouds
+	//Thunderstorm
 	else if (nextSetting == 3){
-		nextSetting = 4;
+		nextSetting = 0;
 		settings[0].endSetting()
 		settings[1].endSetting()
 		settings[2].endSetting()
 		settings[3].beginSetting()
-		settings[4].endSetting()
-		settings[5].endSetting()
-		settings[6].endSetting()
 		colorChange = true;
-		fr = 200;
-  		fg = 200;
-  		fb = 220;
+		fr = 45;
+  		fg = 54;
+  		fb = 86;
 
-  		sr = 100;
-  		sg = 100;
-  		sb = 120;
+  		sr = 145;
+  		sg = 154;
+  		sb = 186;
 	}
-	//Thunderstorm
+	//Clouds
 	else if (nextSetting == 4){
-		nextSetting = 5;
+		nextSetting = 0;
 		settings[0].endSetting()
 		settings[1].endSetting()
 		settings[2].endSetting()
 		settings[3].endSetting()
-		settings[4].beginSetting()
-		settings[5].endSetting()
-		settings[6].endSetting()
 		colorChange = true;
-		fr = 70;
-  		fg = 70;
-  		fb = 120;
+		fr = 189;
+  		fg = 183;
+  		fb = 107;
 
-  		sr = 190;
-  		sg = 150;
-  		sb = 180;
+  		sr = 220;
+  		sg = 220;
+  		sb = 220;
+  		$("#item").fadeOut("slow", function(){
+			$("#item").replaceWith($("<div id='item'><img src='assets/cloud.png' height='20px' width='20px'></div> <!-- End of Umbrella Div -->"));
+			$("#item").fadeOut(0);
+			$("#item").fadeIn("slow");
+		});
 	}
 	//Smoke
-	else if (nextSetting == 5){
-		nextSetting = 6;
-		settings[0].endSetting()
-		settings[1].endSetting()
-		settings[2].endSetting()
-		settings[3].endSetting()
-		settings[4].endSetting()
-		settings[5].beginSetting()
-		settings[6].endSetting()
-		colorChange = true;
-		fr = 70;
-  		fg = 70;
-  		fb = 120;
-
-  		sr = 170;
-  		sg = 150;
-  		sb = 180;
-	}
-	//Haze
 	else if (nextSetting == 5){
 		nextSetting = 0;
 		settings[0].endSetting()
 		settings[1].endSetting()
 		settings[2].endSetting()
 		settings[3].endSetting()
-		settings[4].endSetting()
-		settings[5].endSetting()
-		settings[6].beginSetting()
 		colorChange = true;
 		fr = 70;
   		fg = 70;
@@ -705,6 +669,53 @@ function changeSettings(){
   		sr = 170;
   		sg = 150;
   		sb = 180;
+  		$("#item").fadeOut("slow", function(){
+			$("#item").replaceWith($("<div id='item'><img src='assets/smoke.png' height='20px' width='20px'></div> <!-- End of Umbrella Div -->"));
+			$("#item").fadeOut(0);
+			$("#item").fadeIn("slow");
+		});
+	}
+	//Haze
+	else if (nextSetting == 6){
+		nextSetting = 0;
+		settings[0].endSetting()
+		settings[1].endSetting()
+		settings[2].endSetting()
+		settings[3].endSetting()
+		colorChange = true;
+		fr = 70;
+  		fg = 70;
+  		fb = 120;
+
+  		sr = 170;
+  		sg = 150;
+  		sb = 180;
+  		$("#item").fadeOut("slow", function(){
+			$("#item").replaceWith($("<div id='item'><img src='assets/haze.png' height='20px' width='20px'></div> <!-- End of Umbrella Div -->"));
+			$("#item").fadeOut(0);
+			$("#item").fadeIn("slow");
+		});
+	}
+	//Mist
+	else if (nextSetting == 7){
+		nextSetting = 0;
+		settings[0].endSetting()
+		settings[1].endSetting()
+		settings[2].endSetting()
+		settings[3].endSetting()
+		colorChange = true;
+		fr = 70;
+  		fg = 70;
+  		fb = 120;
+
+  		sr = 170;
+  		sg = 150;
+  		sb = 180;
+  		$("#item").fadeOut("slow", function(){
+			$("#item").replaceWith($("<div id='item'><img src='assets/mist.png' height='20px' width='20px'></div> <!-- End of Umbrella Div -->"));
+			$("#item").fadeOut(0);
+			$("#item").fadeIn("slow");
+		});
 	}
 }
 
@@ -716,7 +727,7 @@ randomSettingChanger = true;
 function animate() {
 	if (randomSettingChanger == true){
 		timer ++;
-		if (timer == 500){
+		if (timer == 10000){
 			timer = 0;
 			changeSettings();
 		}
@@ -982,11 +993,11 @@ document.addEventListener('keydown', (event) => {
 		changeSettings();
 	} else if (currentWeather == "Clouds"){
   		$("#locInfo").text("Zip: " + zipCode.toString() + "  |  " + currentWeather.toString()); 
-  		nextSetting = 3;
+  		nextSetting = 4;
 		changeSettings();
 	} else if (currentWeather == "Thunderstorm"){
   		$("#locInfo").text("Zip: " + zipCode.toString() + "  |  " + currentWeather.toString()); 
-  		nextSetting = 4;
+  		nextSetting = 3;
 		changeSettings();
 	} else if (currentWeather == "Smoke"){
   		$("#locInfo").text("Zip: " + zipCode.toString() + "  |  " + currentWeather.toString()); 
@@ -995,6 +1006,10 @@ document.addEventListener('keydown', (event) => {
 	} else if (currentWeather == "Haze"){
   		$("#locInfo").text("Zip: " + zipCode.toString() + "  |  " + currentWeather.toString()); 
   		nextSetting = 6;
+		changeSettings();
+	} else if (currentWeather == "Mist"){
+  		$("#locInfo").text("Zip: " + zipCode.toString() + "  |  " + currentWeather.toString()); 
+  		nextSetting = 7;
 		changeSettings();
   	} else {
   		$("#locInfo").text("Zip: " + zipCode.toString() + "  |  " + currentWeather.toString()); 
