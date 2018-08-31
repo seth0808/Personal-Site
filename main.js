@@ -928,7 +928,7 @@ class MobileContent {
                     //Set Height
                     $("#headerOne").animate({height: "500px"});
                     //Set Width 
-                    $("#headerOne").animate({width: "360px"});
+                    $("#headerOne").animate({width: "350px"});
                     $("#headerOne").css("z-index", "1");
                     $("#headerOne").css("cursor", "auto");
                     $("#headerOne").append("<img id='back' style='position:absolute; left:0px; top: 0px' src='assets/backArrow.png' height='30px' width='30px'>");
@@ -953,7 +953,7 @@ class MobileContent {
                     //Set Height
                     $("#headerTwo").animate({height: "500px"});
                     //Set Width 
-                    $("#headerTwo").animate({width: "360px"});
+                    $("#headerTwo").animate({width: "350px"});
                     $("#headerTwo").css("z-index", "1");
                     $("#headerTwo").css("cursor", "auto");
                     $("#headerTwo").append("<img id='back' style='position:absolute; left:0px; top: 0px' src='assets/backArrow.png' height='30px' width='30px'>");
@@ -978,7 +978,7 @@ class MobileContent {
                     //Set Height
                     $("#headerThree").animate({height: "500px"});
                     //Set Width 
-                    $("#headerThree").animate({width: "360px"});
+                    $("#headerThree").animate({width: "350px"});
                     $("#headerThree").css("z-index", "1");
                     $("#headerThree").css("cursor", "auto");
                     $("#headerThree").append("<img id='back' style='position:absolute; left:0px; top: 0px' src='assets/backArrow.png' height='30px' width='30px'>");
@@ -1037,7 +1037,7 @@ class MobileContent {
 var content;
 
 
-if (mobilecheck()) {
+if (true || mobilecheck()) {
     content = new MobileContent();
 } else {
     content = new Content();
