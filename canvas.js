@@ -14,12 +14,8 @@ window.mobilecheck = function() {
 // Check if Mobile //
 var ua = navigator.userAgent.toLowerCase(); 
 if (mobilecheck() || (ua.indexOf('safari') != -1 && ua.indexOf('chrome') <= -1 )) {
-	alert("This looks much better with chrome btw...");
-	$("#item").remove();
-	$("#locInfo").remove();
-	$("#zip").remove();
+	alert("More functionality available when using Google Chrome...");
 	$("#canvas").css("background-image", "url('assets/background.jpg')");
-	$("#switch").remove();
 
 }
 	// Background //
@@ -787,11 +783,11 @@ if (mobilecheck() || (ua.indexOf('safari') != -1 && ua.indexOf('chrome') <= -1 )
 	var x = 0
 	randomSettingChanger = true;
 	function animate() {
-		if ($('#box').is(":checked")) {
+		if ($('#box').is(":checked") && !(mobilecheck() || (ua.indexOf('safari') != -1 && ua.indexOf('chrome') <= -1 ))) {
 
 			if (randomSettingChanger == true){
 				timer ++;
-				if (timer == 5000){
+				if (timer == 600){
 					timer = 0;
 					changeSettings();
 				}
