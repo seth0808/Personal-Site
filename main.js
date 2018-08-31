@@ -12,7 +12,7 @@ function handleAboutMe(open, mobile) {
     if (mobile){
         if (open){
             //Image
-            $("#headerOne").append("<img class='item' style='position:absolute; left:20px; top: 50px' src='assets/me.png' height='200px' width='200px'>");
+            $("#headerOne").append("<img class='item' style='position:absolute; left:20px; top: 50px' src='assets/me.png' height='175px' width='175px'>");
             //Name
             $("#headerOne").append("<h1 class='item' style='position:absolute; right:20px; top:205px'>Seth Kujawa</h1>");
             //Description
@@ -690,9 +690,9 @@ function handleProjects(open, mobile) {
 function handleResume(open, mobile) {
     if (mobile){
         if (open){
-            $("#headerThree").append("<div id='changeDesign' class='item' style='text-align: center; position: absolute; top: 65px; left: 35px; text-decoration: underline; font-size: 20px'> Change Design </div>");
-            $("#headerThree").append("<a href='assets/resume.docx' download><img src='assets/download.png' id='download' class='item' style='height: 40px; width: 40px; position: absolute; top: 55px; left: 205px;'></a>");
-            $("#headerThree").append("<div id='expand' class='item' style='text-align: center; position: absolute; top: 65px; left: 280px; text-decoration: underline; font-size:20px'> Expand </div>")
+            $("#headerThree").append("<div id='changeDesign' class='item' style='text-align: center; position: absolute; top: 65px; left: 15px; text-decoration: underline; font-size: 20px'> Change Design </div>");
+            $("#headerThree").append("<a href='assets/resume.docx' download><img src='assets/download.png' id='download' class='item' style='height: 40px; width: 40px; position: absolute; top: 55px; left: 185px;'></a>");
+            $("#headerThree").append("<div id='expand' class='item' style='text-align: center; position: absolute; top: 65px; left: 260px; text-decoration: underline; font-size:20px'> Expand </div>")
             $("#headerThree").append("<img id='resume' class='item' style='margin-top: 100px; width: 350px' src='assets/R1.png'>");
             $("#changeDesign").mouseenter( function() {
                 $(this).css("background-color", "rgba(255, 255, 255, 0.1)");
@@ -928,7 +928,7 @@ class MobileContent {
                     //Set Height
                     $("#headerOne").animate({height: "500px"});
                     //Set Width 
-                    $("#headerOne").animate({width: "390px"});
+                    $("#headerOne").animate({width: "360px"});
                     $("#headerOne").css("z-index", "1");
                     $("#headerOne").css("cursor", "auto");
                     $("#headerOne").append("<img id='back' style='position:absolute; left:0px; top: 0px' src='assets/backArrow.png' height='30px' width='30px'>");
@@ -953,7 +953,7 @@ class MobileContent {
                     //Set Height
                     $("#headerTwo").animate({height: "500px"});
                     //Set Width 
-                    $("#headerTwo").animate({width: "390px"});
+                    $("#headerTwo").animate({width: "360px"});
                     $("#headerTwo").css("z-index", "1");
                     $("#headerTwo").css("cursor", "auto");
                     $("#headerTwo").append("<img id='back' style='position:absolute; left:0px; top: 0px' src='assets/backArrow.png' height='30px' width='30px'>");
@@ -978,7 +978,7 @@ class MobileContent {
                     //Set Height
                     $("#headerThree").animate({height: "500px"});
                     //Set Width 
-                    $("#headerThree").animate({width: "390px"});
+                    $("#headerThree").animate({width: "360px"});
                     $("#headerThree").css("z-index", "1");
                     $("#headerThree").css("cursor", "auto");
                     $("#headerThree").append("<img id='back' style='position:absolute; left:0px; top: 0px' src='assets/backArrow.png' height='30px' width='30px'>");
