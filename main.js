@@ -1037,7 +1037,7 @@ class MobileContent {
 var content;
 
 
-if (true || mobilecheck()) {
+if (mobilecheck()) {
     content = new MobileContent();
 } else {
     content = new Content();
